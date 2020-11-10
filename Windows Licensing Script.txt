@@ -1,10 +1,10 @@
 Import-Module ActiveDirectory
-$OUpath = 'OU=Caroline,OU=Elementary,OU=bluestreakcomputer,DC=saratogaschools,DC=org'
-$ExportPath = 'C:\Users\k_papenhausen\Documents\DNComputers.csv'
+$OUpath = 'OU=,OU=,OU=,DC=,DC=org'
+$ExportPath = 'C:\Users\\Documents\DNComputers.csv'
 Get-ADComputer -Filter * -SearchBase $OUpath | Select-object DistinguishedName,DNSHostName,Name | Export-Csv -NoType $ExportPath
 
 
-$Path="C:\Users\k_papenhausen\Desktop\DNComputers.csv"
+$Path="C:\Users\Desktop\DNComputers.csv"
 $import = Import-Csv $Path
 
 ForEach ($ComputerList in $import)
@@ -14,7 +14,7 @@ $computer = $ComputerList.("Name")
 
 write-output "$computer"
 
-$key = "NPPR9-FWDCX-D2C8J-H872K-2YT43"
+$key = "TTTT-TTTTT-AAAAA-BBBBBB-CCCCC"
 
 $service = get-wmiObject -query "select * from SoftwareLicensingService" -computername $computer
 
