@@ -1,0 +1,24 @@
+Import-Module ActiveDirectory
+$OUpath = 'OU=,OU=,OU=,DC=,DC=org'
+$ExportPath = 'C:\Users\Documents\DNComputers.csv'
+Get-ADComputer -Filter * -SearchBase $OUpath | Select-object DistinguishedName,DNSHostName,Name | Export-Csv -NoType $ExportPath
+
+
+$Path="C:\Users\Desktop\DNComputers.csv"
+$import = Import-Csv $Path
+
+ForEach ($ComputerList in $import)
+{
+
+$computer = $ComputerList.("Name")
+
+write-output "$computer"
+
+$key = "AAAA-BBBB-CCCC-DDDD-EEEE"
+
+$service = get-wmiObject -query "select * from SoftwareLicensingService" -computername $computer
+
+$service.InstallProductKey($key)
+
+$service.RefreshLicenseStatus()
+}
